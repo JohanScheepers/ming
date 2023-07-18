@@ -1,2 +1,2 @@
 # ming
-MQTT, InfluxDB, NodeRED and Grafana
+MQTT, InfluxDB, Node-RED and Grafana
