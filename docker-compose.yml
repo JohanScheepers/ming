@@ -66,27 +66,14 @@ services:
   # ------------------------------------------------------------------------------------
   # Grafana
   # ------------------------------------------------------------------------------------
-  #grafana:
-    #image: bh.cr/balenalabs/dashboard
-    #container_name: grafana
-    #restart: unless-stopped
-    #ports:
-        #- "8080:80"
-    #volumes:
-        #- "grafana-data:/data"
-
   grafana:
-    restart: always
-    build: ./grafana
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+    image: bh.cr/balenalabs/dashboard
+    container_name: grafana
+    restart: unless-stopped
     ports:
-      - "3000:3000"
+        #- "8080:80"
     volumes:
-      - 'grafana-data:/var/lib/grafana'
-    depends_on:
-      - influxdb
+        - "grafana-data:/data"
 
   # ------------------------------------------------------------------------------------
   # MQTT
