@@ -85,8 +85,8 @@ services:
          - "8080:80"
     volumes:
          - 'grafana_storage:/var/lib/grafana'
-  volumes:
-    grafana_storage: {}
+  #volumes:
+    #grafana_storage: {}
 
   # ------------------------------------------------------------------------------------
   # MQTT
