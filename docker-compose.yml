@@ -82,7 +82,7 @@ services:
          - GF_SERVER_ROOT_URL=http://my.grafana.server/
          - GF_INSTALL_PLUGINS=grafana-clock-panel
     ports:
-         - '3000:3000'
+         - "8080:80"
     volumes:
          - 'grafana_storage:/var/lib/grafana'
     volumes:
