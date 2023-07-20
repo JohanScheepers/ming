@@ -85,7 +85,8 @@ services:
          - "8080:80"
     volumes:
          #- "grafana_storage:/var/lib/grafana"
-         - "grafana-data:/data"
+         #- "grafana-data:/data"
+         - '$PWD/data:/var/lib/grafana'
   #volumes:
     #grafana_storage: {}
 
