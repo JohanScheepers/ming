@@ -75,7 +75,7 @@ services:
     #volumes:
         #- "grafana-data:/data"
   grafana:
-    image: grafana/grafana-enterprise
+    image: grafana/grafana-oss
     container_name: grafana
     restart: unless-stopped
     environment:
