@@ -14,7 +14,7 @@ services:
   wifi-connect:
     image: bh.cr/balenalabs/wifi-connect-rpi
     container_name: wifi-connect
-    network_mode: "host"
+    network_mode: host
     labels:
         io.balena.features.dbus: '1'
         io.balena.features.firmware: '1'
@@ -27,7 +27,7 @@ services:
   # Node-RED
   # ------------------------------------------------------------------------------------
   node-red:
-    image: bh.cr/balenalabs/balena-node-red
+    image: bh.cr/balenalabs/balena-node-red-aarch64
     container_name: node-red
     privileged: true
     restart: unless-stopped
@@ -51,6 +51,17 @@ services:
         - "/dev/mem:/dev/mem"
         - "/dev/gpiomem:/dev/gpiomem"
         - "/dev/i2c-1:/dev/i2c-1"
+  
+
+  # ------------------------------------------------------------------------------------
+  # MQTT
+  # ------------------------------------------------------------------------------------
+  mqtt:
+    image: eclipse-mosquitto:1.6.15
+    container_name: mqtt
+    ports:
+      - "1883:1883"
+    restart: always
 
   # ------------------------------------------------------------------------------------
   # Influxdb
@@ -59,6 +70,8 @@ services:
     image: influxdb:1.7.11
     container_name: influxdb
     restart: unless-stopped
+    ports:
+        - "8086:80"
     volumes:
         - influxdb-data:/var/lib/influxdb
         - influxdb-etc:/etc/influxdb
@@ -66,36 +79,11 @@ services:
   # ------------------------------------------------------------------------------------
   # Grafana
   # ------------------------------------------------------------------------------------
-  #grafana:
-    #image: bh.cr/balenalabs/dashboard
-    #container_name: grafana
-    #restart: unless-stopped
-    #ports:
-        #- "8080:80"
-    #volumes:
-        #- "grafana-data:/data"
   grafana:
-    image: grafana/grafana-oss
+    image: bh.cr/balenalabs/dashboard
     container_name: grafana
     restart: unless-stopped
-    environment:
-         - GF_SERVER_ROOT_URL=http://my.grafana.server/
-         - GF_INSTALL_PLUGINS=grafana-clock-panel
     ports:
-         - "8080:80"
+        - "8080:80"
     volumes:
-         #- "grafana_storage:/var/lib/grafana"
-         #- "grafana-data:/data"
-         - '$PWD/data:/var/lib/grafana'
-  #volumes:
-    #grafana_storage: {}
-
-  # ------------------------------------------------------------------------------------
-  # MQTT
-  # ------------------------------------------------------------------------------------
-  mqtt:
-    image: eclipse-mosquitto
-    network_mode: host
-    ports:
-      - "1883:1883"
-    restart: always
+        - "grafana-data:/data"
